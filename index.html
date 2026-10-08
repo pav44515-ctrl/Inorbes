@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>Inorbes — World's Richest Billionaires 2026</title>
+    <meta name="description" content="Live daily-updated rankings of the world's richest billionaires. Track net worth changes, market performance, and wealth trends in real time.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loader-overlay" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Animated Background Particles -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <div class="nav-inner">
+            <div class="logo">
+                <span class="logo-icon">💎</span>
+                <span class="logo-text">In<span class="logo-accent">orbes</span></span>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <a href="#rankings" class="nav-link active" id="nav-rankings">Rankings</a>
+                <a href="#news" class="nav-link" id="nav-news">News</a>
+                <a href="#stats" class="nav-link" id="nav-stats">Statistics</a>
+                <a href="#trends" class="nav-link" id="nav-trends">Trends</a>
+                <a href="#about" class="nav-link" id="nav-about">About</a>
+            </div>
+            <div class="nav-right">
+                <div class="live-indicator" id="live-indicator">
+                    <span class="live-dot"></span>
+                    <span class="live-text">LIVE</span>
+                </div>
+                <div class="last-updated" id="last-updated">Updated just now</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>🌍 GLOBAL WEALTH INDEX</span>
+            </div>
+            <h1 class="hero-title">
+                World's <span class="gradient-text">Richest</span> People
+            </h1>
+            <p class="hero-subtitle">
+                Real-time billionaire rankings with daily net worth updates, market-driven wealth changes, and comprehensive financial insights.
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat" id="hero-stat-total">
+                    <span class="hero-stat-value" data-target="3428">0</span>
+                    <span class="hero-stat-label">Billionaires</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat" id="hero-stat-wealth">
+                    <span class="hero-stat-value">$20.1T</span>
+                    <span class="hero-stat-label">Combined Wealth</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat" id="hero-stat-countries">
+                    <span class="hero-stat-value" data-target="78">0</span>
+                    <span class="hero-stat-label">Countries</span>
+                </div>
+            </div>
+            <a href="#rankings" class="hero-cta" id="hero-cta">
+                <span>Explore Rankings</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                </svg>
+            </a>
+        </div>
+        <div class="hero-glow"></div>
+    </header>
+
+    <!-- Daily Update Ticker -->
+    <section id="ticker-section">
+        <div class="ticker-wrapper">
+            <div class="ticker-label">
+                <span class="ticker-icon">📊</span>
+                <span>DAILY UPDATE</span>
+            </div>
+            <div class="ticker-track">
+                <div class="ticker-content" id="ticker-content">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Pulse -->
+    <section id="market-pulse">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Today's Snapshot</div>
+                <h2 class="section-title">Market <span class="gradient-text">Pulse</span></h2>
+                <p class="section-desc">Key market indicators driving billionaire wealth changes today</p>
+            </div>
+            <div class="pulse-grid" id="pulse-grid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Rankings Section -->
+    <section id="rankings">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Forbes & Bloomberg Data</div>
+                <h2 class="section-title">Billionaire <span class="gradient-text">Rankings</span></h2>
+                <p class="section-desc">Top 50 wealthiest individuals, updated with daily market movements</p>
+            </div>
+
+            <div class="filter-bar" id="filter-bar">
+                <button class="filter-btn active" data-filter="all" id="filter-all">All</button>
+                <button class="filter-btn" data-filter="tech" id="filter-tech">Technology</button>
+                <button class="filter-btn" data-filter="finance" id="filter-finance">Finance</button>
+                <button class="filter-btn" data-filter="luxury" id="filter-luxury">Luxury</button>
+                <button class="filter-btn" data-filter="retail" id="filter-retail">Retail</button>
+            </div>
+
+            <!-- Top 3 Podium -->
+            <div class="podium" id="podium">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Full Rankings Table -->
+            <div class="rankings-table-wrapper">
+                <table class="rankings-table" id="rankings-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Net Worth</th>
+                            <th>Daily Change</th>
+                            <th>Share Price</th>
+                            <th>Industry</th>
+                            <th>Country</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rankings-tbody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">📰 Latest Headlines</div>
+                <h2 class="section-title">Billionaire <span class="gradient-text">News</span></h2>
+                <p class="section-desc">Breaking stories and updates on the world's wealthiest individuals</p>
+            </div>
+            <div class="news-grid" id="news-grid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Wealth Analytics</div>
+                <h2 class="section-title">Wealth <span class="gradient-text">Statistics</span></h2>
+                <p class="section-desc">Breakdown of global billionaire wealth by industry, region, and trends</p>
+            </div>
+            <div class="stats-grid" id="stats-grid">
+                <!-- Industry breakdown -->
+                <div class="stat-card" id="stat-industry">
+                    <div class="stat-card-header">
+                        <span class="stat-card-icon">🏭</span>
+                        <h3>By Industry</h3>
+                    </div>
+                    <div class="stat-bars" id="industry-bars">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+                <!-- Regional breakdown -->
+                <div class="stat-card" id="stat-region">
+                    <div class="stat-card-header">
+                        <span class="stat-card-icon">🌍</span>
+                        <h3>By Region</h3>
+                    </div>
+                    <div class="stat-bars" id="region-bars">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+                <!-- Key Metrics -->
+                <div class="stat-card stat-card-wide" id="stat-metrics">
+                    <div class="stat-card-header">
+                        <span class="stat-card-icon">📈</span>
+                        <h3>Key Metrics</h3>
+                    </div>
+                    <div class="metrics-grid" id="metrics-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trends Section -->
+    <section id="trends">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Historical Data</div>
+                <h2 class="section-title">Wealth <span class="gradient-text">Trends</span></h2>
+                <p class="section-desc">How the fortunes of the top billionaires have evolved over recent years</p>
+            </div>
+            <div class="trends-container">
+                <div class="chart-card" id="chart-card">
+                    <div class="chart-header">
+                        <h3>Net Worth Over Time (Top 5)</h3>
+                        <div class="chart-legend" id="chart-legend"></div>
+                    </div>
+                    <canvas id="wealth-chart" width="900" height="400"></canvas>
+                </div>
+                <div class="trends-highlights" id="trends-highlights">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <div class="section-badge">About This Project</div>
+                    <h2 class="section-title">Tracking Global <span class="gradient-text">Wealth</span></h2>
+                    <p class="about-text">
+                        This dashboard aggregates data from Forbes, Bloomberg, and other financial sources to provide a comprehensive, 
+                        daily-updated view of the world's wealthiest individuals. Net worth figures are calculated based on publicly 
+                        available stock holdings, company valuations, and asset estimates.
+                    </p>
+                    <p class="about-text">
+                        Daily changes are simulated based on real market patterns and historical volatility. 
+                        For official real-time data, visit 
+                        <a href="https://www.forbes.com/real-time-billionaires/" target="_blank" rel="noopener">Forbes Real-Time Billionaires</a> 
+                        or the 
+                        <a href="https://www.bloomberg.com/billionaires/" target="_blank" rel="noopener">Bloomberg Billionaires Index</a>.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <span class="about-feature-icon">⚡</span>
+                            <div>
+                                <strong>Daily Updates</strong>
+                                <p>Net worth recalculated every day based on market data</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <span class="about-feature-icon">📊</span>
+                            <div>
+                                <strong>Rich Analytics</strong>
+                                <p>Industry, regional, and trend analysis at a glance</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <span class="about-feature-icon">🔒</span>
+                            <div>
+                                <strong>Trusted Sources</strong>
+                                <p>Data sourced from Forbes & Bloomberg indices</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="about-globe" id="about-globe">
+                        <div class="globe-ring ring-1"></div>
+                        <div class="globe-ring ring-2"></div>
+                        <div class="globe-ring ring-3"></div>
+                        <div class="globe-core">🌐</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Billionaire Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div class="modal-header" id="modal-header"></div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <span class="logo-icon">💎</span>
+                    <span class="logo-text">In<span class="logo-accent">orbes</span></span>
+                    <p class="footer-desc">Real-time global billionaire wealth tracking and analytics.</p>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Quick Links</h4>
+                    <a href="#rankings">Rankings</a>
+                    <a href="#stats">Statistics</a>
+                    <a href="#trends">Trends</a>
+                    <a href="#about">About</a>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Data Sources</h4>
+                    <a href="https://www.forbes.com/billionaires/" target="_blank" rel="noopener">Forbes</a>
+                    <a href="https://www.bloomberg.com/billionaires/" target="_blank" rel="noopener">Bloomberg</a>
+                    <a href="https://www.hurun.net/" target="_blank" rel="noopener">Hurun Report</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Inorbes. Data for informational purposes only.</p>
+                <p class="footer-update" id="footer-update">Last data refresh: <span id="footer-date"></span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">↑</button>
+</body>
+</html>
